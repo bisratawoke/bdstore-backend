@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm i 
 
-RUN npm i typescript , prisma , @prisma/client , pm2
+RUN npm i typescript prisma @prisma/client pm2
 
 RUN npx prisma generate 
 
