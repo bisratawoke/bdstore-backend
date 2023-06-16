@@ -12,6 +12,8 @@ RUN npx prisma generate
 
 RUN npx prisma migrate dev --name init
 
+RUN npx tsc
+
 CMD ["npx", "pm2", "start" ,"dist/index.js"]
 
 
