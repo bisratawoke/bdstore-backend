@@ -1,4 +1,4 @@
-FROM nodejs
+FROM node
 
 WORKDIR /usr/local/app
 
