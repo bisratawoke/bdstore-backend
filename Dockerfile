@@ -10,7 +10,8 @@ RUN npm i typescript prisma @prisma/client pm2
 
 RUN npx prisma generate 
 
-RUN npx prisma migrate deploy
+RUN npx prisma migrate dev --name init
+
 CMD ["npx", "pm2", "start" ,"dist/index.js"]
 
 
