@@ -9,6 +9,8 @@ class UserController {
 
   async register(req: express.Request, res: express.Response) {
     try {
+      console.log("======== in create function =================");
+      console.log(req.body);
       const user = await UserService.create(req.body);
       return res.status(201).json(user);
     } catch (error: any) {

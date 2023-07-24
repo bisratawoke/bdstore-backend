@@ -14,6 +14,8 @@ RUN npx prisma migrate dev --name init
 
 RUN npx tsc
 
+RUN mkdir ./dist/public
+
 CMD ["npx", "pm2-runtime", "start" ,"dist/index.js"]
 
 
