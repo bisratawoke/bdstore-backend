@@ -41,6 +41,7 @@ model region {
   picture_url String
   item item[]
 }
+
 enum item_status {
   AVAILABLE
   SOLD
@@ -48,10 +49,11 @@ enum item_status {
 }
 
 enum catelog_type {
-  CAR
-  HOUSE
-  COSMOTICS
-  TECHNOLOGY
-  CLOTHING
-  OTHER
+  Car
+  House
+  Cosmotics
+  Technology
+  Clothing
+  Other
+  Shoes
 }

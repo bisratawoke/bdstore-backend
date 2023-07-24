@@ -5,16 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_routes_config_1 = __importDefault(require("../common/common.routes.config"));
 const region_controller_1 = __importDefault(require("./controller/region.controller"));
+const common_file_handler_1 = __importDefault(require("../common/Filehandler/common.file_handler"));
 class RegionRoutesConfig extends common_routes_config_1.default {
-    constructor(app) {
-        super(app);
+    constructor(app, baseUri) {
+        super(app, baseUri);
         this.ConfigureRoutes();
     }
     ConfigureRoutes() {
         this.app
-            .route("/api/v1/region")
+            .route(`${this.baseUri}/region`)
             .get(region_controller_1.default.getRegions)
-            .post(region_controller_1.default.createRegion);
+            .post(common_file_handler_1.default.single("region"), region_controller_1.default.createRegion);
         return this.app;
     }
 }

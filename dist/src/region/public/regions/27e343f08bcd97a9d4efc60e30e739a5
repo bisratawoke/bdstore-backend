@@ -1,0 +1,7 @@
+Region ,Zone ,Woreda,Kebele,soil_type_local,soil_type_eng,fert_type,fert_rate,%age_of_users
+Amhara,zza,wwa,kk1,Vertisol,mm,NPS,100,25
+Amhara,zza,wwa,kk1,Cambisol,ss,NPS,100,25
+Amhara,zza,wwa,kk2,Nitisol,kk,NPS,100,25
+Oromia,zzo,wwo,kk5,Vertisol,ww,NPS,100,25
+Oromia,zzo,wwo,kk5,Cambisol,ss,NPS,100,25
+Oromia,zzo,wwo,kk5,Nitisol,kk,NPS,100,25

@@ -31,22 +31,24 @@ class ItemService {
     setCatalogType(itemDto) {
         return __awaiter(this, void 0, void 0, function* () {
             switch (itemDto.catalog_type) {
-                case "CAR":
-                    itemDto.catalog_type = client_1.catelog_type.CAR;
+                case "Car":
+                    itemDto.catalog_type = client_1.catelog_type.Car;
                     break;
-                case "HOUSE":
-                    itemDto.catalog_type = client_1.catelog_type.HOUSE;
-                case "COSMOTICS":
-                    itemDto.catalog_type = client_1.catelog_type.COSMOTICS;
+                case "House":
+                    itemDto.catalog_type = client_1.catelog_type.House;
+                case "Cosmotics":
+                    itemDto.catalog_type = client_1.catelog_type.Cosmotics;
                     break;
-                case "TECHNOLOGY":
-                    itemDto.catalog_type = client_1.catelog_type.TECHNOLOGY;
+                case "Technology":
+                    itemDto.catalog_type = client_1.catelog_type.Technology;
                     break;
-                case "CLOTHING":
-                    itemDto.catalog_type = client_1.catelog_type.CLOTHING;
+                case "Clothing":
+                    itemDto.catalog_type = client_1.catelog_type.Clothing;
                     break;
-                case "OTHER":
-                    itemDto.catalog_type = client_1.catelog_type.OTHER;
+                case "Shoes":
+                    itemDto.catalog_type = client_1.catelog_type.Shoes;
+                default:
+                    itemDto.catalog_type = client_1.catelog_type.Other;
             }
             return itemDto;
         });
@@ -55,10 +57,25 @@ class ItemService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let items = yield item_dao_1.default.getItems(filter);
+                console.log(items);
                 items = yield this.filterByLocation(filter.location, items);
                 items = yield this.filterByCategory(filter.category, items);
                 items = yield this.filterProductsByPriceRange(parseInt(filter.min_price), parseInt(filter.max_price), items);
                 return items;
+            }
+            catch (error) {
+                throw new Error(error);
+            }
+        });
+    }
+    getNumberOfItemsThatMatch(filter) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let items = yield item_dao_1.default.getItems(filter);
+                items = yield this.filterByLocation(filter.location, items);
+                items = yield this.filterByCategory(filter.category, items);
+                items = yield this.filterProductsByPriceRange(parseInt(filter.min_price), parseInt(filter.max_price), items);
+                return items.length;
             }
             catch (error) {
                 throw new Error(error);
@@ -76,7 +93,6 @@ class ItemService {
     filterByCategory(category, items) {
         return __awaiter(this, void 0, void 0, function* () {
             if (category.length > 0 && !category.includes("Everything")) {
-                console.log("============== in category filter ==================");
                 return items.filter((item) => item.catalog_type.toLowerCase().startsWith(category.toLowerCase()));
             }
             return items;
@@ -94,6 +110,17 @@ class ItemService {
             }
             else
                 return current;
+        });
+    }
+    getItemTypes() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const itemTypes = yield item_dao_1.default.getItemTypes();
+                return itemTypes;
+            }
+            catch (error) {
+                throw error;
+            }
         });
     }
 }

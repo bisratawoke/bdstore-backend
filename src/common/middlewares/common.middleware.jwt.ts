@@ -1,12 +1,13 @@
 import jwt from "jsonwebtoken";
 import express from "express";
+import IRequestWithUserObject from "../interface/express/common.interface.express.request_with_user_object";
 class JwtMiddleware {
   secret: string;
   constructor() {
     this.secret = process.env.SECRET || "jwt-secret";
   }
 
-  generateToken(req: express.Request, res: express.Response) {
+  generateToken(req: IRequestWithUserObject, res: express.Response) {
     jwt.sign(req.user, this.secret, (err: any, token: any) => {
       if (err) {
         return res.sendStatus(500);
@@ -17,7 +18,7 @@ class JwtMiddleware {
   }
 
   verifyToken(
-    req: express.Request,
+    req: IRequestWithUserObject,
     res: express.Response,
     next: express.NextFunction
   ) {

@@ -24,6 +24,7 @@ class ItemController {
                     max_price: req.params.max_price,
                     min_price: req.params.min_price,
                 };
+                console.log("========== in get items =================");
                 console.log(filters);
                 const items = yield item_service_1.default.list(filters);
                 return res.status(200).json(items);
@@ -37,8 +38,42 @@ class ItemController {
     createItem(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const item = yield item_service_1.default.create(Object.assign(Object.assign({}, req.body), { owner_id: req.user.id }));
+                console.log(req.file);
+                console.log(req.body);
+                const item = yield item_service_1.default.create(Object.assign(Object.assign({}, req.body), { owner_id: req.user.id, filename: req.file.filename }));
                 return res.status(201).json("Item created");
+            }
+            catch (error) {
+                console.log(error);
+                return res.status(500).json("Server error");
+            }
+        });
+    }
+    getNumberOfItemsThatMatch(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const filters = {
+                    location: req.params.location,
+                    category: req.params.category,
+                    max_price: req.params.max_price,
+                    min_price: req.params.min_price,
+                };
+                console.log(filters);
+                const numberOfItems = yield item_service_1.default.getNumberOfItemsThatMatch(filters);
+                return res.json(numberOfItems);
+            }
+            catch (error) {
+                console.log(error);
+                return res.status(500).json("Server error");
+            }
+        });
+    }
+    getItemTypes(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                console.log("================== in here =================");
+                const itemTypes = yield item_service_1.default.getItemTypes();
+                return res.json(itemTypes);
             }
             catch (error) {
                 console.log(error);

@@ -44,7 +44,7 @@ class ItemDao {
                                 name: itemDto.region,
                             },
                         },
-                        picture_url: itemDto.picture_url,
+                        picture_url: itemDto.filename,
                         owner: {
                             connect: {
                                 id: itemDto.owner_id,
@@ -57,6 +57,19 @@ class ItemDao {
             catch (error) {
                 console.log(error);
                 throw new Error(error);
+            }
+        });
+    }
+    getItemTypes() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                console.log("========== inhere ===============");
+                const types = client_1.catelog_type;
+                console.log(client_1.catelog_type);
+                return types;
+            }
+            catch (error) {
+                throw error;
             }
         });
     }

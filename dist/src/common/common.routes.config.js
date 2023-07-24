@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class CommonRoutesConfig {
-    constructor(app) {
+    constructor(app, baseUri) {
         this.app = app;
+        this.baseUri = baseUri;
     }
 }
 exports.default = CommonRoutesConfig;

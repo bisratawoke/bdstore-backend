@@ -6,5 +6,5 @@ export default interface ICreateItemDto {
   status: string;
   owner_id: string;
   region: string;
-  picture_url: string;
+  filename: string;
 }

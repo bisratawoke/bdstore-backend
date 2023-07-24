@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="file" name="name" class="file" />
+    <input type="text" class="region_name" />
+    <input type="submit" name="submit" class="btn" />
+    <script>
+      window.onload = () => {
+        const fileInput = document.querySelector(".file");
+        const btn = document.querySelector(".btn");
+        const regionName = document.querySelector(".region_name");
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const formData = new FormData();
+          formData.append("region", fileInput.files[0]);
+          formData.append("region_name", regionName.value);
+          fetch("http://localhost:4000/api/v1/region", {
+            method: "POST",
+            body: formData,
+          })
+            .then((res) => res.json())
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+        });
+      };
+    </script>
+  </body>
+</html>

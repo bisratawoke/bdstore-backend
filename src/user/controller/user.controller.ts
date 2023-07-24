@@ -1,6 +1,9 @@
 import express from "express";
 import UserService from "../service/user.service";
 
+interface IRequestWithUserObject extends express.Request {
+  user: any;
+}
 class UserController {
   constructor() {}
 
@@ -20,7 +23,7 @@ class UserController {
   }
 
   async login(
-    req: express.Request,
+    req: IRequestWithUserObject,
     res: express.Response,
     next: express.NextFunction
   ) {

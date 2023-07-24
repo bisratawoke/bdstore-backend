@@ -2,7 +2,7 @@
 
 npm i 
 
-npm i typescript , prisma , @prisma/client
+npm i typescript  prisma  @prisma/client
 
 npx prisma generate 
 

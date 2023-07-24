@@ -19,10 +19,17 @@ class RegionController {
         return res.json([]);
     }
     createRegion(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const new_region = yield region_service_1.default.create(req.body);
-                return res.json(new_region);
+                if ((_a = req.file) === null || _a === void 0 ? void 0 : _a.filename) {
+                    const payload = {
+                        picture_url: req.file.filename,
+                        name: req.body.region_name,
+                    };
+                    const new_region = yield region_service_1.default.create(payload);
+                    return res.json(req.body);
+                }
             }
             catch (error) {
                 console.log(error);

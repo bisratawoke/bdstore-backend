@@ -19,22 +19,25 @@ class ItemService {
     itemDto: ICreateItemDto
   ): Promise<ICreateItemDto> {
     switch (itemDto.catalog_type) {
-      case "CAR":
-        itemDto.catalog_type = catelog_type.CAR;
+      case "Car":
+        itemDto.catalog_type = catelog_type.Car;
         break;
-      case "HOUSE":
-        itemDto.catalog_type = catelog_type.HOUSE;
-      case "COSMOTICS":
-        itemDto.catalog_type = catelog_type.COSMOTICS;
+      case "House":
+        itemDto.catalog_type = catelog_type.House;
+      case "Cosmotics":
+        itemDto.catalog_type = catelog_type.Cosmotics;
         break;
-      case "TECHNOLOGY":
-        itemDto.catalog_type = catelog_type.TECHNOLOGY;
+      case "Technology":
+        itemDto.catalog_type = catelog_type.Technology;
         break;
-      case "CLOTHING":
-        itemDto.catalog_type = catelog_type.CLOTHING;
+      case "Clothing":
+        itemDto.catalog_type = catelog_type.Clothing;
         break;
-      case "OTHER":
-        itemDto.catalog_type = catelog_type.OTHER;
+      case "Shoes":
+        itemDto.catalog_type = catelog_type.Shoes;
+        break;
+      default:
+        itemDto.catalog_type = catelog_type.Other;
     }
     return itemDto;
   }
@@ -42,6 +45,7 @@ class ItemService {
   public async list(filter: ItemFilter) {
     try {
       let items = await ItemDao.getItems(filter);
+      console.log(items);
       items = await this.filterByLocation(filter.location, items);
       items = await this.filterByCategory(filter.category, items);
       items = await this.filterProductsByPriceRange(
@@ -55,6 +59,21 @@ class ItemService {
     }
   }
 
+  public async getNumberOfItemsThatMatch(filter: ItemFilter) {
+    try {
+      let items = await ItemDao.getItems(filter);
+      items = await this.filterByLocation(filter.location, items);
+      items = await this.filterByCategory(filter.category, items);
+      items = await this.filterProductsByPriceRange(
+        parseInt(filter.min_price),
+        parseInt(filter.max_price),
+        items
+      );
+      return items.length;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
   private async filterByLocation(
     location: string,
     items: Array<item>
@@ -72,7 +91,6 @@ class ItemService {
     items: Array<item>
   ): Promise<Array<item>> {
     if (category.length > 0 && !category.includes("Everything")) {
-      console.log("============== in category filter ==================");
       return items.filter((item: item) =>
         item.catalog_type.toLowerCase().startsWith(category.toLowerCase())
       );
@@ -94,9 +112,19 @@ class ItemService {
     ) {
       return current.filter(
         (product: item) =>
-          product.price >= min_price && product.price <= max_price
+          (product.price >= min_price && product.price <= max_price) ||
+          product.price <= min_price
       );
     } else return current;
+  }
+
+  public async getItemTypes() {
+    try {
+      const itemTypes = await ItemDao.getItemTypes();
+      return itemTypes;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

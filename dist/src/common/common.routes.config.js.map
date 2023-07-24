@@ -1,1 +1,1 @@
-{"version":3,"file":"common.routes.config.js","sourceRoot":"","sources":["../../../src/common/common.routes.config.ts"],"names":[],"mappings":";;AAEA,MAA8B,kBAAkB;IAE9C,YAAY,GAAwB;QAClC,IAAI,CAAC,GAAG,GAAG,GAAG,CAAC;IACjB,CAAC;CAGF;AAPD,qCAOC"}
+{"version":3,"file":"common.routes.config.js","sourceRoot":"","sources":["../../../src/common/common.routes.config.ts"],"names":[],"mappings":";;AAEA,MAA8B,kBAAkB;IAG9C,YAAY,GAAwB,EAAE,OAAe;QACnD,IAAI,CAAC,GAAG,GAAG,GAAG,CAAC;QACf,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;IACzB,CAAC;CAGF;AATD,qCASC"}
