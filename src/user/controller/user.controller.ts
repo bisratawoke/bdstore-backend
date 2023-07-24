@@ -12,6 +12,8 @@ class UserController {
       const user = await UserService.create(req.body);
       return res.status(201).json(user);
     } catch (error: any) {
+      console.log("============= in register ==============");
+      console.log(error);
       if (error.code) {
         if (error.code == "P2002") {
           return res.status(400).json("User already registered");
