@@ -20,5 +20,13 @@ class RegionDao {
       throw new Error(error);
     }
   }
+  public async getRegions() {
+    try {
+      const regions = await this.prismaClient.region.findMany({});
+      return regions;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 export default new RegionDao();

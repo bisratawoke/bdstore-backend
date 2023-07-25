@@ -10,5 +10,14 @@ class RegionService {
       throw new Error(error);
     }
   }
+
+  public async getRegions(): Promise<Region[]> {
+    try {
+      const regions = await regionDao.getRegions();
+      return regions;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 export default new RegionService();

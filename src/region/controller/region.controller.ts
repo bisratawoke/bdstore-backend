@@ -4,8 +4,13 @@ import Region from "../dto/region.create.dto";
 import config from "../../common/config";
 class RegionController {
   constructor() {}
-  public getRegions(req: express.Request, res: express.Response) {
-    return res.json([]);
+  public async getRegions(req: express.Request, res: express.Response) {
+    try {
+      const regions = await regionService.getRegions();
+      return res.json(regions);
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
   }
   public async createRegion(req: express.Request, res: express.Response) {
     try {
