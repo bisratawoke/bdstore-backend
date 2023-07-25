@@ -16,6 +16,8 @@ RUN npx tsc
 
 RUN mkdir ./dist/public
 
+COPY ./public/index.html ./dist/public
+
 CMD ["npx", "pm2-runtime", "start" ,"dist/index.js"]
 
 
