@@ -28,5 +28,23 @@ class RegionDao {
       throw error;
     }
   }
+  public async deleteRegions() {
+    try {
+      await this.prismaClient.region.deleteMany({});
+    } catch (error) {
+      throw error;
+    }
+  }
+  public async deleteRegion(name: string) {
+    try {
+      await this.prismaClient.region.delete({
+        where: {
+          name: name,
+        },
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 export default new RegionDao();

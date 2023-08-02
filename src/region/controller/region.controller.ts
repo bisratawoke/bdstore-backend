@@ -14,6 +14,9 @@ class RegionController {
   }
   public async createRegion(req: express.Request, res: express.Response) {
     try {
+      console.log(
+        "============= in here ===================="
+      )
       if (req.file?.filename) {
         const payload: Region = {
           picture_url: req.file.filename,

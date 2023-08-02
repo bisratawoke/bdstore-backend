@@ -26,6 +26,9 @@ export default class ItemRoutesConfig extends CommonRoutesConfig {
       )
       .get(ItemController.getNumberOfItemsThatMatch);
 
+    this.app
+      .route(`${this.baseUri}/item-description/:id`)
+      .get(ItemController.getItem);
     this.app.route(`${this.baseUri}/item-type`).get(
       // commonMiddlewareJwt.verifyToken.bind(commonMiddlewareJwt),
       ItemController.getItemTypes

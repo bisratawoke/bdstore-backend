@@ -126,6 +126,15 @@ class ItemService {
       throw error;
     }
   }
+
+  public async getItem(id: string) {
+    try {
+      const item = await ItemDao.getItem(id);
+      return item;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new ItemService();

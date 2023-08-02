@@ -23,7 +23,6 @@ class ItemDao {
 
   public async createItem(itemDto: ICreateItemDto) {
     try {
-      console.log(itemDto);
       const item = await this.prismaClient.item.create({
         data: {
           price: parseInt(itemDto.price),
@@ -32,7 +31,7 @@ class ItemDao {
           status: item_status.AVAILABLE,
           region: {
             connect: {
-              name: itemDto.region,
+              name: itemDto.region.toLowerCase(),
             },
           },
           picture_url: itemDto.filename,
@@ -46,17 +45,35 @@ class ItemDao {
 
       return item;
     } catch (error: any) {
-      console.log(error);
       throw new Error(error);
     }
   }
 
   public async getItemTypes() {
     try {
-      console.log("========== inhere ===============");
       const types = catelog_type;
-      console.log(catelog_type);
       return types;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async getItem(id: string) {
+    try {
+      const item = await this.prismaClient.item.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          owner: {
+            select: {
+              phone_number: true,
+              email: true,
+            },
+          },
+        },
+      });
+      return item;
     } catch (error) {
       throw error;
     }

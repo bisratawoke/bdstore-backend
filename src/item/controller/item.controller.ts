@@ -13,20 +13,16 @@ class ItemController {
         max_price: req.params.max_price,
         min_price: req.params.min_price,
       };
-      console.log("========== in get items =================");
-      console.log(filters);
+
       const items = await ItemService.list(filters);
       return res.status(200).json(items);
     } catch (error) {
-      console.log(error);
       return res.status(500).json("Server error");
     }
   }
 
   public async createItem(req: IRequestWithUserObject, res: express.Response) {
     try {
-      // console.log(req.file);
-      // console.log(req.body);
       const item = await ItemService.create({
         ...req.body,
         owner_id: req.user.id,
@@ -63,12 +59,21 @@ class ItemController {
 
   public async getItemTypes(req: express.Request, res: express.Response) {
     try {
-      console.log("================== in here =================");
       const itemTypes = await ItemService.getItemTypes();
       return res.json(itemTypes);
     } catch (error) {
-      console.log(error);
       return res.status(500).json("Server error");
+    }
+  }
+
+  public async getItem(req: express.Request, res: express.Response) {
+    try {
+      console.log("============= in get items ==============");
+      console.log(req.params);
+      const item = await ItemService.getItem(req.params.id);
+      return res.json(item);
+    } catch (error) {
+      return res.sendStatus(500);
     }
   }
 }
