@@ -31,7 +31,7 @@ class ItemDao {
           status: item_status.AVAILABLE,
           region: {
             connect: {
-              name: itemDto.region.toLowerCase(),
+              name: itemDto.region,
             },
           },
           picture_url: itemDto.filename,

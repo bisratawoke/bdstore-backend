@@ -68,8 +68,6 @@ class ItemController {
 
   public async getItem(req: express.Request, res: express.Response) {
     try {
-      console.log("============= in get items ==============");
-      console.log(req.params);
       const item = await ItemService.getItem(req.params.id);
       return res.json(item);
     } catch (error) {
