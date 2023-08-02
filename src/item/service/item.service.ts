@@ -135,6 +135,14 @@ class ItemService {
       throw error;
     }
   }
+  public async deleteItem(id: string, owner_id: string) {
+    try {
+      const item = await ItemDao.delete(id, owner_id);
+      return item;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new ItemService();

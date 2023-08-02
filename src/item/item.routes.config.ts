@@ -10,6 +10,12 @@ export default class ItemRoutesConfig extends CommonRoutesConfig {
   }
   ConfigureRoutes(): Application {
     this.app
+      .route(`${this.baseUri}/item/:id`)
+      .delete(
+        commonMiddlewareJwt.verifyToken.bind(commonMiddlewareJwt),
+        ItemController.deleteItem
+      );
+    this.app
       .route(
         `${this.baseUri}/item/:location?/:category?/:max_price?/:min_price?`
       )
@@ -33,6 +39,7 @@ export default class ItemRoutesConfig extends CommonRoutesConfig {
       // commonMiddlewareJwt.verifyToken.bind(commonMiddlewareJwt),
       ItemController.getItemTypes
     );
+
     return this.app;
   }
 }

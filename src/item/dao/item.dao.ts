@@ -78,6 +78,35 @@ class ItemDao {
       throw error;
     }
   }
+
+  public async isOwner(item_id: string, owner_id: string): Promise<boolean> {
+    try {
+      const item = await this.prismaClient.item.findUnique({
+        where: {
+          id: item_id,
+        },
+      });
+      return item.owner_id == owner_id;
+    } catch (error) {
+      throw error;
+    }
+  }
+  public async delete(id: string, owner_id: string) {
+    try {
+      // const isOwner = this.isOwner(id, owner_id);
+      const isOwner = true;
+      if (isOwner) {
+        const item = await this.prismaClient.item.delete({
+          where: {
+            id,
+          },
+        });
+        return item;
+      } else throw "Unauthorized";
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new ItemDao();

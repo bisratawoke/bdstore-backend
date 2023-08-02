@@ -74,6 +74,19 @@ class ItemController {
       return res.sendStatus(500);
     }
   }
+
+  public async deleteItem(
+    req: express.Request & { user: { id: string } },
+    res: express.Response
+  ) {
+    try {
+      const item = await ItemService.deleteItem(req.params.id, req.user.id);
+      return res.json(200);
+    } catch (error) {
+      console.log(error);
+      return res.sendStatus(500);
+    }
+  }
 }
 
 export default new ItemController();
