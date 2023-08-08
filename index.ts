@@ -9,7 +9,14 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 const server = http.createServer(app);
 const baseUri = "/api/v1";
-app.use(express.static(path.resolve(__dirname, "public")));
+
+app.get("/:fileName", (req: express.Request, res: express.Response) => {
+  try {
+    return res.sendFile(path.resolve(__dirname, "public", req.params.fileName));
+  } catch (error) {
+    return res.json(error);
+  }
+});
 app.use(express.json());
 app.use(cors());
 
