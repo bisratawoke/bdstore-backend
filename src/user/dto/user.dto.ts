@@ -7,6 +7,6 @@ export interface createUserDto {
 }
 
 export interface getUserDto {
-  email: string;
+  username: string;
   password: string;
 }

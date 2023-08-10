@@ -12,9 +12,9 @@ datasource db {
 
 model user {
   id String @id @default(uuid())
-  email String @unique
+  email String? @unique
   password String
-  phone_number String?
+  phone_number String? @unique
   first_name String?
   last_name String?
   items item[]
@@ -29,11 +29,12 @@ model item {
   region_name String
   catalog_type catelog_type
   status item_status 
-  picture_url String
+  picture_url String?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  owner user @relation(fields: [owner_id],references: [id])
+  owner user? @relation(fields: [owner_id],references: [id])
   owner_id String
+  picture String?
 }
 
 model region {

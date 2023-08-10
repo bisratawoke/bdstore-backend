@@ -14,18 +14,18 @@ class RegionController {
   }
   public async createRegion(req: express.Request, res: express.Response) {
     try {
-      console.log(
-        "============= in here ===================="
-      )
-      if (req.file?.filename) {
+      console.log(req.file);
+      if (req.file) {
+        console.log("=============== here =================");
         const payload: Region = {
-          picture_url: req.file.filename,
+          picture_url: req.file.buffer.toString("base64"),
           name: req.body.region_name,
         };
         const new_region = await regionService.create(payload);
         return res.json(req.body);
       }
     } catch (error) {
+      console.log("============== here =================");
       console.log(error);
       return res.sendStatus(500);
     }

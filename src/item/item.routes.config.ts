@@ -10,11 +10,19 @@ export default class ItemRoutesConfig extends CommonRoutesConfig {
   }
   ConfigureRoutes(): Application {
     this.app
+      .route(`${this.baseUri}/item/create`)
+      .post(
+        commonMiddlewareJwt.verifyToken.bind(commonMiddlewareJwt),
+        ItemController.createItemWithOutPicture
+      );
+    // this.app.route(`${this.baseUri}/item/file/:fileName`).get(ItemController.getItemFile)
+    this.app
       .route(`${this.baseUri}/item/:id`)
       .delete(
         commonMiddlewareJwt.verifyToken.bind(commonMiddlewareJwt),
         ItemController.deleteItem
       );
+
     this.app
       .route(
         `${this.baseUri}/item/:location?/:category?/:max_price?/:min_price?`
@@ -25,7 +33,6 @@ export default class ItemRoutesConfig extends CommonRoutesConfig {
         upload.single("picture"),
         ItemController.createItem
       );
-
     this.app
       .route(
         `${this.baseUri}/item/match/:location?/:category?/:max_price?/:min_price?`

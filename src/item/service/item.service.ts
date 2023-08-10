@@ -15,11 +15,12 @@ class ItemService {
     }
   }
 
-  public async setCatalogType(
-    itemDto: ICreateItemDto
-  ): Promise<ICreateItemDto> {
+  public async setCatalogType(itemDto: any): Promise<ICreateItemDto> {
     switch (itemDto.catalog_type) {
       case "Car":
+        itemDto.catalog_type = catelog_type.Car;
+        break;
+      case "Cars":
         itemDto.catalog_type = catelog_type.Car;
         break;
       case "House":
@@ -138,6 +139,16 @@ class ItemService {
   public async deleteItem(id: string, owner_id: string) {
     try {
       const item = await ItemDao.delete(id, owner_id);
+      return item;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async createItemWithOutPic(itemDto: Omit<ICreateItemDto, "picture">) {
+    try {
+      let record = await this.setCatalogType(itemDto);
+      const item = await ItemDao.createItemWithOutPic(record);
       return item;
     } catch (error) {
       throw error;

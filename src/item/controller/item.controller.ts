@@ -27,7 +27,9 @@ class ItemController {
         ...req.body,
         owner_id: req.user.id,
         filename: req.file.filename,
+        picture: req.file.buffer.toString("base64"),
       });
+
       return res.status(201).json("Item created");
     } catch (error) {
       console.log(error);
@@ -84,6 +86,20 @@ class ItemController {
       return res.json(200);
     } catch (error) {
       console.log(error);
+      return res.sendStatus(500);
+    }
+  }
+  public async createItemWithOutPicture(
+    req: IRequestWithUserObject,
+    res: express.Response
+  ) {
+    try {
+      console.log("============ in create function ============");
+      req.body.owner_id = req.user.id;
+      console.log(req.body);
+      const result = await ItemService.createItemWithOutPic(req.body);
+      return res.json(result);
+    } catch (error) {
       return res.sendStatus(500);
     }
   }

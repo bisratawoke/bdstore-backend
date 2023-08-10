@@ -35,6 +35,7 @@ class ItemDao {
             },
           },
           picture_url: itemDto.filename,
+          picture: itemDto.picture,
           owner: {
             connect: {
               id: itemDto.owner_id,
@@ -104,6 +105,34 @@ class ItemDao {
         return item;
       } else throw "Unauthorized";
     } catch (error) {
+      throw error;
+    }
+  }
+
+  public async createItemWithOutPic(itemDto: Omit<ICreateItemDto, "picture">) {
+    try {
+      const item = await this.prismaClient.item.create({
+        data: {
+          price: parseInt(itemDto.price),
+          description: itemDto.description,
+          catalog_type: itemDto.catalog_type,
+          status: item_status.AVAILABLE,
+          region: {
+            connect: {
+              name: itemDto.region,
+            },
+          },
+          picture_url: itemDto.filename,
+          picture: null,
+          owner: {
+            connect: {
+              id: itemDto.owner_id,
+            },
+          },
+        },
+      });
+    } catch (error) {
+      console.log(error);
       throw error;
     }
   }

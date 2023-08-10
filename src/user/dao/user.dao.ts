@@ -22,18 +22,28 @@ class UserDao {
   async get(user: getUserDto) {
     return new Promise<any>(async (resolve, reject) => {
       try {
-        const result: any = await this.prismaClient.user.findUnique({
+        let result: any = await this.prismaClient.user.findMany({
           where: {
-            email: user.email,
+            OR: [
+              {
+                email: user.username,
+              },
+              {
+                phone_number: user.username,
+              },
+            ],
           },
         });
-        if (!result)
+        if (result.length < 1)
           reject({
             code: 1,
             message: "User not found",
           });
+
+        result = result[0];
         if (result.password == user.password) {
           resolve({
+            phoneNumber: result?.phoneNumber,
             email: result?.email,
             id: result?.id,
           });
