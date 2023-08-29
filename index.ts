@@ -17,4 +17,17 @@ app.use(cors());
 new UserRoutesConfig(app, baseUri);
 new ItemRoutesConfig(app, baseUri);
 new RegionRoutesConfig(app, baseUri);
+
+app.use(
+  (
+    err: any,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    if (err.code) {
+      return res.status(err.code).json(err.message);
+    } else return res.status(500).json("Internal Server Error");
+  }
+);
 server.listen(PORT, () => console.log(`Listening on  port ${PORT}`));

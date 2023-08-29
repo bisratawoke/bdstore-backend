@@ -1,6 +1,13 @@
-import { PrismaClient, catelog_type, item, item_status } from "@prisma/client";
+import {
+  Prisma,
+  PrismaClient,
+  catelog_type,
+  item,
+  item_status,
+} from "@prisma/client";
 import ICreateItemDto from "../dto/item.create.dto";
 import ItemFilter from "../dto/item.filter.dto";
+import Exceptions, { errorCode } from "../../common/Errro/common.error";
 
 class ItemDao {
   prismaClient: PrismaClient;
@@ -105,7 +112,10 @@ class ItemDao {
         return item;
       } else throw "Unauthorized";
     } catch (error) {
-      throw error;
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code == "P2025")
+          throw new Exceptions("Record does not exist", errorCode.BAD_REQUEST);
+      } else throw error;
     }
   }
 

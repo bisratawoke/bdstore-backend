@@ -1,7 +1,8 @@
 import ICreateItemDto from "../dto/item.create.dto";
 import ItemDao from "../dao/item.dao";
-import { catelog_type, item } from "@prisma/client";
+import { Prisma, catelog_type, item } from "@prisma/client";
 import ItemFilter from "../dto/item.filter.dto";
+import Exceptions, { errorCode } from "../../common/Errro/common.error";
 
 class ItemService {
   constructor() {}
@@ -141,7 +142,9 @@ class ItemService {
       const item = await ItemDao.delete(id, owner_id);
       return item;
     } catch (error) {
-      throw error;
+      if (error instanceof Exceptions) throw error;
+      else
+        throw new Exceptions("Internal error", errorCode.INTERNAL_SERVER_ERROR);
     }
   }
 

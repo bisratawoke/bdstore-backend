@@ -79,14 +79,14 @@ class ItemController {
 
   public async deleteItem(
     req: express.Request & { user: { id: string } },
-    res: express.Response
+    res: express.Response,
+    next: express.NextFunction
   ) {
     try {
       const item = await ItemService.deleteItem(req.params.id, req.user.id);
       return res.json(200);
     } catch (error) {
-      console.log(error);
-      return res.sendStatus(500);
+      next(error);
     }
   }
   public async createItemWithOutPicture(

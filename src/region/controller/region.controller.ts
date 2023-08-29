@@ -14,9 +14,7 @@ class RegionController {
   }
   public async createRegion(req: express.Request, res: express.Response) {
     try {
-      console.log(req.file);
       if (req.file) {
-        console.log("=============== here =================");
         const payload: Region = {
           picture_url: req.file.buffer.toString("base64"),
           name: req.body.region_name,
