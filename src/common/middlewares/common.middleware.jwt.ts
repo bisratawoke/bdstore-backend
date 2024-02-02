@@ -24,7 +24,6 @@ class JwtMiddleware {
   ) {
     let token: any = req.headers["authorization"];
     token = token.split(" ")[1];
-    console.log(token);
     jwt.verify(token, this.secret, (err: any, result: any) => {
       if (err) {
         return res.sendStatus(401);
